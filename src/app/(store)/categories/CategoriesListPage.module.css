@@ -43,17 +43,19 @@
 /* ── Grid ── */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2.2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
+  max-width: 1040px;
+  margin: 0 auto;
 }
 
 /* ── Card ── */
 .card {
   display: block;
   position: relative;
-  border-radius: 6px;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
   transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
               box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: pointer;
@@ -89,8 +91,9 @@
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.75) 0%,
-    rgba(0, 0, 0, 0.15) 50%,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.45) 45%,
+    rgba(0, 0, 0, 0.08) 80%,
     transparent 100%
   );
   transition: opacity 0.3s ease;
@@ -102,32 +105,35 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 2rem;
+  padding: 2.2rem 2.4rem 2.6rem;
   color: #fff;
   z-index: 2;
 }
 
 .name {
   font-family: var(--font-serif);
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
   color: #fff;
   margin: 0 0 0.4rem;
-  transition: color 0.25s ease;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.7);
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .card:hover .name {
   color: var(--accent-color);
+  transform: translateY(-2px);
 }
 
 .count {
   font-family: var(--font-sans);
-  font-size: 0.95rem;
-  letter-spacing: 1.5px;
+  font-size: 1.05rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: 0.9;
+  opacity: 0.92;
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
 }
 
 /* ── Empty ── */
@@ -164,8 +170,9 @@
   }
 
   .grid {
+    max-width: 100%;
     grid-template-columns: 1fr 1fr;
-    gap: 1.6rem;
+    gap: 1.8rem;
   }
 
   .content {
@@ -173,7 +180,7 @@
   }
 
   .name {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
   }
 
   .count {
@@ -185,11 +192,11 @@
 @media (max-width: 480px) {
   .grid {
     grid-template-columns: 1fr;
-    gap: 1.2rem;
+    gap: 1.6rem;
   }
 
   .name {
-    font-size: 1.6rem;
+    font-size: 1.9rem;
   }
 
   .count {
