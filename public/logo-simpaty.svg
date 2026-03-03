@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" role="img" aria-labelledby="title desc">
   <title id="title">Simpaty — женская одежда премиум-класса</title>
-  <desc id="desc">Логотип бренда Simpaty с элегантной бордовой надписью на светлом фоне.</desc>
-  <rect width="320" height="80" fill="#f9f4f2"/>
+  <desc id="desc">Логотип бренда Simpaty с элегантной бордовой надписью без фона.</desc>
   <text
     x="50%"
     y="52%"
