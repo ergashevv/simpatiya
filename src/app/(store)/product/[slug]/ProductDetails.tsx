@@ -44,10 +44,11 @@ export function ProductDetails({ product }: { product: ProductWithCategory }) {
           <div className={styles.mainImageContainer}>
             <AnimatePresence mode="wait">
               <motion.img 
-                key={activeImage}
-                src={activeImage}
+                key={activeImage || 'default'}
+                src={activeImage || ''}
                 alt={name}
                 className={styles.mainImage}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', position: 'absolute', top: 0, left: 0 }}
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
@@ -79,8 +80,8 @@ export function ProductDetails({ product }: { product: ProductWithCategory }) {
             </button>
             
             <div className={styles.extraInfo}>
-              <p>✓ 100% Sifat kafolati</p>
-              <p>✓ Butun O'zbekiston bo'ylab yetkazib berish xizmati</p>
+              <p>✓ {t('product.quality')}</p>
+              <p>✓ {t('product.delivery')}</p>
             </div>
           </motion.div>
         </div>

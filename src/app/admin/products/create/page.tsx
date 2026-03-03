@@ -83,7 +83,11 @@ export default function CreateProductPage() {
 
         <div className={styles.formGroup}>
           <label>Asosiy Rasm *</label>
-          <ImageUpload value={imageUrl} onChange={setImageUrl} />
+          <ImageUpload
+            value={imageUrl}
+            onChange={setImageUrl}
+            hint="Tavsiya: 800×1000 px (portrait/vertikal format)"
+          />
         </div>
 
         <button type="submit" disabled={loading} className={styles.btn}>

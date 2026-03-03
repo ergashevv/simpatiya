@@ -12,22 +12,64 @@ export function Hero() {
   return (
     <section className={styles.hero}>
       <div className={styles.overlay} />
-      
+
       <div className={`container ${styles.content}`}>
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
+        <motion.span
+          className={styles.tagline}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
         >
-          <span className={styles.tagline}>Simpaty Exclusive</span>
-          <h1 className={styles.title}>{t('home.hero.title')}</h1>
-          <p className={styles.subtitle}>{t('home.hero.subtitle')}</p>
-          
+          Simpaty Exclusive
+        </motion.span>
+
+        <motion.h1
+          className={styles.title}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          {t('home.hero.title')}
+        </motion.h1>
+
+        <motion.p
+          className={styles.subtitle}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          {t('home.hero.subtitle')}
+        </motion.p>
+
+        <motion.div
+          className={styles.actions}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+        >
           <Link href="/categories" className={styles.btn}>
             {t('home.hero.cta')}
           </Link>
+          <Link href="/categories" className={styles.btnSecondary}>
+            {t('home.story.btn')}
+          </Link>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className={styles.scrollHint}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
+      >
+        <span className={styles.scrollHintLabel}>Scroll</span>
+        <div className={styles.scrollHintMouse}>
+          <span className={styles.scrollHintDot} />
+        </div>
+      </motion.div>
     </section>
   )
 }
+
+

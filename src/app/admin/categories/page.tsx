@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
 import styles from '../AdminForms.module.css'
+import { CategoryActions } from './CategoryActions'
 
 export default async function AdminCategoriesPage() {
   const categories = await prisma.category.findMany({
@@ -8,11 +9,11 @@ export default async function AdminCategoriesPage() {
   })
 
   return (
-    <div className={styles.container} style={{ maxWidth: '1000px' }}>
+    <div className={styles.container} style={{ maxWidth: '1100px' }}>
       <div className={styles.listHeader}>
         <h1 className={styles.title}>Kategoriyalar</h1>
         <Link href="/admin/categories/create" className={styles.addBtn}>
-          + Yangi qoshish
+          + Yangi qo&apos;shish
         </Link>
       </div>
 
@@ -24,6 +25,7 @@ export default async function AdminCategoriesPage() {
             <th>Slug</th>
             <th>Asosiy Rang</th>
             <th>Status</th>
+            <th>Amallar</th>
           </tr>
         </thead>
         <tbody>
@@ -37,19 +39,22 @@ export default async function AdminCategoriesPage() {
                 )}
               </td>
               <td>{c.nameUz}</td>
-              <td>{c.slug}</td>
+              <td><code style={{fontSize: '0.85rem', background: '#F3F4F6', padding: '2px 6px', borderRadius: 4}}>{c.slug}</code></td>
               <td>
                 <div style={{display: 'flex', alignItems: 'center', gap: 8}}>
-                  <div style={{width: 20, height: 20, background: c.mainColor || '#800020', borderRadius: '50%'}} />
+                  <div style={{width: 20, height: 20, background: c.mainColor || '#800020', borderRadius: '50%', border: '1px solid #eee'}} />
                   {c.mainColor}
                 </div>
               </td>
               <td>{c.isActive ? 'Faol' : 'Nofaol'}</td>
+              <td>
+                <CategoryActions id={c.id} />
+              </td>
             </tr>
           ))}
           {categories.length === 0 && (
             <tr>
-              <td colSpan={5} style={{textAlign: 'center', padding: '2rem'}}>Kategoriyalar topilmadi.</td>
+              <td colSpan={6} style={{textAlign: 'center', padding: '2rem'}}>Kategoriyalar topilmadi.</td>
             </tr>
           )}
         </tbody>

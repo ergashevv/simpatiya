@@ -1,10 +1,12 @@
 .hero {
   position: relative;
-  height: 90vh;
+  height: 95vh;
+  min-height: 600px;
   width: 100%;
-  background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop');
+  background-image: url('/images/hero-banner.png');
   background-size: cover;
   background-position: center 20%;
+  background-attachment: fixed;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -16,8 +18,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  /* Deep bordeaux gradient fade to create passion and focus */
-  background: linear-gradient(135deg, rgba(80, 0, 32, 0.8) 0%, rgba(20, 0, 8, 0.4) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(80, 0, 32, 0.82) 0%,
+    rgba(20, 0, 8, 0.45) 60%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
   z-index: 1;
 }
 
@@ -25,58 +31,146 @@
   position: relative;
   z-index: 2;
   color: #fff;
-  max-width: 600px;
+  max-width: 680px;
 }
 
 .tagline {
-  display: block;
+  display: inline-block;
   font-family: var(--font-sans);
   text-transform: uppercase;
-  letter-spacing: 4px;
-  font-size: 14px;
+  letter-spacing: 5px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--accent-color);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+  padding-bottom: 0.5rem;
 }
 
 .title {
-  font-size: 4rem;
-  line-height: 1.1;
+  font-size: 5rem;
+  line-height: 1.05;
   margin-bottom: 1.5rem;
   color: #fff;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  text-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  font-weight: 600;
 }
 
 .subtitle {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 300;
-  margin-bottom: 2.5rem;
-  line-height: 1.6;
+  margin-bottom: 3rem;
+  line-height: 1.7;
   opacity: 0.9;
+  max-width: 540px;
+}
+
+.actions {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .btn {
   display: inline-block;
-  padding: 1rem 2.5rem;
+  padding: 1rem 2.75rem;
   background-color: var(--accent-color);
-  color: #000;
+  color: #0a0a0a;
   font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   border-radius: 2px;
-  transition: all var(--transition-fast);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .btn:hover {
   background-color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+}
+
+.btnSecondary {
+  display: inline-block;
+  padding: 1rem 2.75rem;
+  background-color: transparent;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.6);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btnSecondary:hover {
+  background-color: rgba(255,255,255,0.12);
+  border-color: #fff;
+  transform: translateY(-3px);
+}
+
+.scrollHint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.7;
+}
+
+.scrollHintLabel {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #fff;
+}
+
+.scrollHintMouse {
+  width: 24px;
+  height: 38px;
+  border: 2px solid rgba(255,255,255,0.7);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.scrollHintDot {
+  width: 4px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 2px;
+  animation: scrollBounce 1.8s infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(10px); opacity: 0.3; }
 }
 
 @media (max-width: 768px) {
+  .hero {
+    background-attachment: scroll;
+    height: 85vh;
+  }
   .title {
-    font-size: 2.5rem;
+    font-size: 3rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+  }
+  .actions {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
+

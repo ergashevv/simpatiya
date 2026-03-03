@@ -5,10 +5,12 @@ import { UploadCloud, X } from 'lucide-react'
 
 export function ImageUpload({ 
   value, 
-  onChange 
+  onChange,
+  hint
 }: { 
   value: string | null
-  onChange: (url: string) => void 
+  onChange: (url: string) => void
+  hint?: string
 }) {
   const [uploading, setUploading] = useState(false)
 
@@ -29,7 +31,7 @@ export function ImageUpload({
       } else {
         alert('Rasm yuklashda xato. BLOB xatosi.')
       }
-    } catch (err) {
+    } catch {
       alert('Rasm yuklanmadi')
     } finally {
       setUploading(false)
@@ -40,7 +42,18 @@ export function ImageUpload({
     <div style={{ marginBottom: '1rem' }}>
       {value ? (
         <div style={{ position: 'relative', width: 'fit-content' }}>
-          <img src={value} alt="Yuklangan rasm" style={{ width: '200px', borderRadius: '8px' }} />
+          <img 
+            src={value} 
+            alt="Yuklangan rasm" 
+            style={{ 
+              width: '100%', 
+              maxWidth: '320px', 
+              height: '180px', 
+              objectFit: 'cover', 
+              borderRadius: '8px',
+              display: 'block'
+            }} 
+          />
           <button 
             type="button" 
             onClick={() => onChange('')}
@@ -68,7 +81,12 @@ export function ImageUpload({
           ) : (
             <>
               <UploadCloud size={32} color="#aaa" style={{ marginBottom: '0.5rem' }} />
-              <p>Rasmni yuklash uchun bosing</p>
+              <p style={{ marginBottom: '0.25rem' }}>Rasmni yuklash uchun bosing</p>
+              {hint && (
+                <p style={{ fontSize: '12px', color: '#999', marginTop: '0.25rem' }}>
+                  📐 {hint}
+                </p>
+              )}
               <input 
                 type="file" 
                 accept="image/*" 
@@ -85,3 +103,4 @@ export function ImageUpload({
     </div>
   )
 }
+

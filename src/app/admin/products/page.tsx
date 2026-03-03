@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
 import styles from '../AdminForms.module.css'
+import { ProductActions } from './ProductActions'
 
 export default async function AdminProductsPage() {
   const products = await prisma.product.findMany({
@@ -9,11 +10,11 @@ export default async function AdminProductsPage() {
   })
 
   return (
-    <div className={styles.container} style={{ maxWidth: '1000px' }}>
+    <div className={styles.container} style={{ maxWidth: '1200px' }}>
       <div className={styles.listHeader}>
         <h1 className={styles.title}>Mahsulotlar</h1>
         <Link href="/admin/products/create" className={styles.addBtn}>
-          + Yangi qoshish
+          + Yangi qo&apos;shish
         </Link>
       </div>
 
@@ -25,6 +26,7 @@ export default async function AdminProductsPage() {
             <th>Kategoriya</th>
             <th>Narx (UZS)</th>
             <th>Status</th>
+            <th>Amallar</th>
           </tr>
         </thead>
         <tbody>
@@ -37,15 +39,18 @@ export default async function AdminProductsPage() {
                   <div style={{width: 50, height: 50, background: '#eee', borderRadius: 4}} />
                 )}
               </td>
-              <td>{p.nameUz}</td>
+              <td><strong>{p.nameUz}</strong></td>
               <td>{p.category?.nameUz}</td>
-              <td>{new Intl.NumberFormat('uz-UZ').format(p.price)}</td>
+              <td>{new Intl.NumberFormat('uz-UZ').format(p.price)} so&apos;m</td>
               <td>{p.isActive ? 'Faol' : 'Nofaol'}</td>
+              <td>
+                <ProductActions id={p.id} />
+              </td>
             </tr>
           ))}
           {products.length === 0 && (
             <tr>
-              <td colSpan={5} style={{textAlign: 'center', padding: '2rem'}}>Mahsulotlar topilmadi.</td>
+              <td colSpan={6} style={{textAlign: 'center', padding: '2rem'}}>Mahsulotlar topilmadi.</td>
             </tr>
           )}
         </tbody>

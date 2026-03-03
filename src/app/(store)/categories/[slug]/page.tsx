@@ -1,12 +1,24 @@
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import prisma from '@/lib/prisma'
 import { CategoryThemeSetter } from '@/components/CategoryThemeSetter'
 import { ProductCard } from '@/components/ProductCard'
+import { CategoryHeader } from './CategoryHeader'
 import styles from './CategoryPage.module.css'
 
-export default async function CategoryPage({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const category = await prisma.category.findUnique({ where: { slug } })
+  return {
+    title: category ? `${category.nameUz} | Simpaty` : 'Kategoriya | Simpaty',
+    description: category ? `Simpaty - ${category.nameUz} kolleksiyasi` : '',
+  }
+}
+
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
   const category = await prisma.category.findUnique({
-    where: { slug: params.slug },
+    where: { slug: resolvedParams.slug },
     include: {
       subCategories: true,
       products: {
@@ -22,29 +34,40 @@ export default async function CategoryPage({ params }: { params: { slug: string 
 
   return (
     <div className={styles.page}>
-      <CategoryThemeSetter 
-        primary={category.mainColor || '#800020'} 
-        secondary={category.secondaryColor || '#d4af37'} 
+      <CategoryThemeSetter
+        primary={category.mainColor || '#800020'}
+        secondary={category.secondaryColor || '#d4af37'}
       />
-      
-      <div className={styles.hero} style={{ backgroundImage: `url(${category.imageUrl || ''})` }}>
+
+      {/* Hero banner — uses CategoryHeader (client) for i18n-aware title + breadcrumb */}
+      <div
+        className={styles.hero}
+        style={{ backgroundImage: category.imageUrl ? `url(${category.imageUrl})` : 'none' }}
+      >
         <div className={styles.overlay} />
-        <div className={`container ${styles.headerContent}`}>
-          <h1 className={styles.title}>{category.nameUz}</h1>
-        </div>
+        <CategoryHeader
+          nameUz={category.nameUz}
+          nameRu={category.nameRu}
+          productCount={category.products.length}
+        />
       </div>
 
+      {/* Products */}
       <div className={`container ${styles.content}`}>
-        <div className={styles.grid}>
-          {category.products.length > 0 ? (
-            category.products.map(product => (
+        {category.products.length > 0 ? (
+          <div className={styles.grid}>
+            {category.products.map(product => (
               <ProductCard key={product.id} product={product} />
-            ))
-          ) : (
-            <p className={styles.empty}>Hozircha ushbu kategoriyada mahsulotlar y'oq.</p>
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className={styles.empty}>
+            <p>Bu kategoriyada hozircha mahsulotlar yo&apos;q.</p>
+            <Link href="/categories" className={styles.backBtn}>← Kategoriyalar</Link>
+          </div>
+        )}
       </div>
     </div>
   )
 }
+

@@ -3,9 +3,10 @@ import prisma from '@/lib/prisma'
 import { ProductDetails } from './ProductDetails'
 import { CategoryThemeSetter } from '@/components/CategoryThemeSetter'
 
-export default async function ProductPage({ params }: { params: { slug: string } }) {
+export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
   const product = await prisma.product.findUnique({
-    where: { slug: params.slug },
+    where: { slug: resolvedParams.slug },
     include: { category: true }
   })
 

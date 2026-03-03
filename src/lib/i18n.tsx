@@ -13,8 +13,8 @@ interface I18nContextType {
 const translations: Record<Language, Record<string, string>> = {
   uz: {
     'home.hero.title': 'Premium Ayollar Kiyimlari',
-    'home.hero.subtitle': 'O\'ziga ishongan ayollar uchun nozik did va nafosat. Yangi to\'plamni kashf eting.',
-    'home.hero.cta': 'Kolleksiyani ko\'rish',
+    'home.hero.subtitle': "O'ziga ishongan ayollar uchun nozik did va nafosat. Yangi to'plamni kashf eting.",
+    'home.hero.cta': "Kolleksiyani ko'rish",
     'nav.home': 'Bosh sahifa',
     'nav.categories': 'Kategoriyalar',
     'nav.login': 'Kirish',
@@ -27,6 +27,24 @@ const translations: Record<Language, Record<string, string>> = {
     'form.submit': 'Yuborish',
     'order.success': 'Buyurtma muvaffaqiyatli qoldirildi!',
     'categories.all': 'Barcha Kategoriyalar',
+    'product.quality': "100% Sifat kafolati",
+    'product.delivery': "Butun O'zbekiston bo'ylab yetkazib berish xizmati",
+    'category.breadcrumb.home': 'Bosh sahifa',
+    'category.breadcrumb.categories': 'Kategoriyalar',
+    'category.products': 'ta mahsulot',
+    'category.empty': 'Bu kategoriyada hozircha mahsulotlar yo\'q.',
+    'category.back': '← Kategoriyalar',
+    'home.featured.tagline': 'Trendda',
+    'home.featured.title': 'Yangi Kolleksiya',
+    'home.features.shipping.title': 'Tezkor Yetkazib Berish',
+    'home.features.shipping.desc': 'Barcha hududlarga tez va ishonchli yetkazib berish xizmati',
+    'home.features.quality.title': 'Premium Sifat',
+    'home.features.quality.desc': 'Eng yaxshi matolardan tayyorlangan eksklyuziv kiyimlar',
+    'home.features.support.title': "24/7 Qo'llab-quvvatlash",
+    'home.features.support.desc': 'Mijozlarimiz uchun doimiy yordam va maslahatlar',
+    'home.story.title': 'Simpaty - bu nafosat',
+    'home.story.desc': "Bizning maqsadimiz har bir ayolning o'ziga xos go'zalligini ochib berishdir. Har qanday libos nafislik, qulaylik va yuqori sifatni o'zida mujassam etadi. Maxsus kolleksiyalarimiz orqali o'zingizga ishonchni his qiling.",
+    'home.story.btn': 'Batafsil',
   },
   ru: {
     'home.hero.title': 'Женская одежда премиум-класса',
@@ -44,24 +62,47 @@ const translations: Record<Language, Record<string, string>> = {
     'form.submit': 'Отправить',
     'order.success': 'Заказ успешно оформлен!',
     'categories.all': 'Все категории',
-  }
+    'product.quality': '100% Гарантия качества',
+    'product.delivery': 'Доставка по всему Узбекистану',
+    'category.breadcrumb.home': 'Главная',
+    'category.breadcrumb.categories': 'Категории',
+    'category.products': 'товаров',
+    'category.empty': 'В этой категории пока нет товаров.',
+    'category.back': '← Категории',
+    'home.featured.tagline': 'В тренде',
+    'home.featured.title': 'Новая Коллекция',
+    'home.features.shipping.title': 'Быстрая доставка',
+    'home.features.shipping.desc': 'Быстрая и надежная доставка во все регионы',
+    'home.features.quality.title': 'Премиальное качество',
+    'home.features.quality.desc': 'Эксклюзивная одежда из лучших тканей',
+    'home.features.support.title': 'Поддержка 24/7',
+    'home.features.support.desc': 'Постоянная помощь и консультации для наших клиентов',
+    'home.story.title': 'Simpaty - это утонченность',
+    'home.story.desc': 'Наша цель - раскрыть уникальную красоту каждой женщины. Каждое платье сочетает в себе элегантность, комфорт и высокое качество. Почувствуйте уверенность в себе с нашими специальными коллекциями.',
+    'home.story.btn': 'Подробнее',
+  },
 }
 
 const I18nContext = createContext<I18nContextType>({
   lang: 'uz',
   setLang: () => {},
-  t: (key) => key
+  t: (key) => key,
 })
 
 export const useI18n = () => useContext(I18nContext)
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
+  // Always start with 'uz' — identical on server AND first client render.
+  // This prevents the hydration mismatch where the server renders 'uz' text
+  // but the client immediately reads 'ru' from localStorage before React hydrates.
   const [lang, setLang] = useState<Language>('uz')
 
+  // After the component mounts (client-only), sync to the saved preference.
+  // We use startTransition so the state update is non-urgent (avoids cascading render warning).
   useEffect(() => {
-    const savedLine = localStorage.getItem('simpaty-lang') as Language
-    if (savedLine && (savedLine === 'uz' || savedLine === 'ru')) {
-      setLang(savedLine)
+    const saved = localStorage.getItem('simpaty-lang') as Language
+    if (saved === 'uz' || saved === 'ru') {
+      React.startTransition(() => setLang(saved))
     }
   }, [])
 
@@ -71,9 +112,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.lang = newLang
   }
 
-  const t = (key: string) => {
-    return translations[lang][key] || key
-  }
+  const t = (key: string) => translations[lang][key] || key
 
   return (
     <I18nContext.Provider value={{ lang, setLang: handleSetLang, t }}>
