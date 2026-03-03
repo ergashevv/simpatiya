@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 import prisma from '@/lib/prisma'
 import { CategoryThemeSetter } from '@/components/CategoryThemeSetter'
 import { ProductCard } from '@/components/ProductCard'
 import { CategoryHeader } from './CategoryHeader'
+import { CategoryEmptyState } from './CategoryEmptyState'
 import styles from './CategoryPage.module.css'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -61,10 +61,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             ))}
           </div>
         ) : (
-          <div className={styles.empty}>
-            <p>Bu kategoriyada hozircha mahsulotlar yo&apos;q.</p>
-            <Link href="/categories" className={styles.backBtn}>← Kategoriyalar</Link>
-          </div>
+          <CategoryEmptyState />
         )}
       </div>
     </div>
