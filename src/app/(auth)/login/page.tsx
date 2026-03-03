@@ -5,12 +5,14 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { login } from '@/app/actions/auth'
+import { useI18n } from '@/lib/i18n'
 import styles from '../Auth.module.css'
 
 export default function LoginPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const { t } = useI18n()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -29,7 +31,7 @@ export default function LoginPage() {
         }
       }
     } catch {
-      setError("Tizim xatosi. Qayta urinib ko'ring")
+      setError(t('auth.login.error'))
     } finally {
       setLoading(false)
     }
@@ -44,8 +46,8 @@ export default function LoginPage() {
         transition={{ duration: 0.5 }}
       >
         <Link href="/" className={styles.logo}>SIMPATY</Link>
-        <h1 className={styles.title}>Xush kelibsiz</h1>
-        <p className={styles.subtitle}>Tizimga kirish uchun ma'lumotlaringizni kiriting</p>
+        <h1 className={styles.title}>{t('auth.login.title')}</h1>
+        <p className={styles.subtitle}>{t('auth.login.subtitle')}</p>
 
         <form className={styles.form} onSubmit={handleSubmit}>
           {error && <p className={styles.error}>{error}</p>}
@@ -59,12 +61,13 @@ export default function LoginPage() {
           </div>
           
           <button type="submit" disabled={loading} className={styles.btn}>
-            {loading ? 'Kuting...' : 'Kirish'}
+            {loading ? t('auth.login.loading') : t('auth.login.submit')}
           </button>
         </form>
 
         <p className={styles.footer}>
-          Hisobingiz yo'qmi? <Link href="/signup">Ro'yxatdan o'tish</Link>
+          {t('auth.login.footer')}{' '}
+          <Link href="/signup">{t('auth.login.footerLink')}</Link>
         </p>
       </motion.div>
     </div>
