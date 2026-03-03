@@ -160,17 +160,48 @@
 @media (max-width: 768px) {
   .hero {
     background-attachment: scroll;
-    height: 85vh;
+    height: auto;
+    min-height: 80vh;
+    padding: 4.5rem 1.25rem 3.5rem;
+    background-position: center top;
   }
+
+  .content {
+    max-width: 100%;
+  }
+
+  .tagline {
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 1.1rem;
+  }
+
   .title {
-    font-size: 3rem;
+    font-size: 2.4rem;
+    line-height: 1.15;
+    margin-bottom: 1.1rem;
   }
+
   .subtitle {
-    font-size: 1rem;
+    font-size: 0.98rem;
+    max-width: 100%;
+    margin-bottom: 2.2rem;
   }
+
   .actions {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .btn,
+  .btnSecondary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .scrollHint {
+    display: none;
   }
 }
 

@@ -131,11 +131,35 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .title {
-    font-size: 2.2rem;
-  }
   .hero {
-    height: 35vh;
+    height: auto;
+    min-height: 320px;
+    padding-bottom: 2rem;
+  }
+
+  .breadcrumb {
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
+  }
+
+  .title {
+    font-size: 2rem;
+    letter-spacing: 1.2px;
+    line-height: 1.15;
+  }
+
+  .productCount {
+    font-size: 11px;
+    padding: 0.3rem 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
   }
 }
 

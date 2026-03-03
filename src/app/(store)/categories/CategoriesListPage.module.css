@@ -5,7 +5,7 @@
 
 /* ── Header ── */
 .header {
-  padding: 5rem 0 3rem;
+  padding: 4rem 0 2.5rem;
   background-color: #faf9f8;
   text-align: center;
   border-bottom: 1px solid rgba(0,0,0,0.06);
@@ -15,15 +15,15 @@
   display: inline-block;
   font-family: var(--font-sans);
   text-transform: uppercase;
-  letter-spacing: 5px;
-  font-size: 12px;
+  letter-spacing: 4px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--accent-color);
   margin-bottom: 1rem;
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 3.1rem;
   color: var(--text-main);
   margin-bottom: 1.5rem;
 }
@@ -43,8 +43,8 @@
 /* ── Grid ── */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2.2rem;
 }
 
 /* ── Card ── */
@@ -124,10 +124,10 @@
 
 .count {
   font-family: var(--font-sans);
-  font-size: 0.85rem;
-  letter-spacing: 2px;
+  font-size: 0.95rem;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  opacity: 0.75;
+  opacity: 0.9;
 }
 
 /* ── Empty ── */
@@ -160,22 +160,39 @@
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .title {
-    font-size: 2.2rem;
+    font-size: 2.6rem;
   }
 
   .grid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem;
+  }
+
+  .content {
+    padding: 1.4rem;
+  }
+
+  .name {
+    font-size: 1.5rem;
+  }
+
+  .count {
+    font-size: 0.9rem;
+    letter-spacing: 1.2px;
   }
 }
 
 @media (max-width: 480px) {
   .grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
   }
 
   .name {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
+  }
+
+  .count {
+    font-size: 0.95rem;
   }
 }
