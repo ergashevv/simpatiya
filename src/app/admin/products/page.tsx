@@ -1,0 +1,55 @@
+import prisma from '@/lib/prisma'
+import Link from 'next/link'
+import styles from '../AdminForms.module.css'
+
+export default async function AdminProductsPage() {
+  const products = await prisma.product.findMany({
+    include: { category: true },
+    orderBy: { createdAt: 'desc' }
+  })
+
+  return (
+    <div className={styles.container} style={{ maxWidth: '1000px' }}>
+      <div className={styles.listHeader}>
+        <h1 className={styles.title}>Mahsulotlar</h1>
+        <Link href="/admin/products/create" className={styles.addBtn}>
+          + Yangi qoshish
+        </Link>
+      </div>
+
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Rasm</th>
+            <th>Nomi (UZ)</th>
+            <th>Kategoriya</th>
+            <th>Narx (UZS)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map(p => (
+            <tr key={p.id}>
+              <td>
+                {p.primaryImage ? (
+                  <img src={p.primaryImage} alt={p.nameUz} />
+                ) : (
+                  <div style={{width: 50, height: 50, background: '#eee', borderRadius: 4}} />
+                )}
+              </td>
+              <td>{p.nameUz}</td>
+              <td>{p.category?.nameUz}</td>
+              <td>{new Intl.NumberFormat('uz-UZ').format(p.price)}</td>
+              <td>{p.isActive ? 'Faol' : 'Nofaol'}</td>
+            </tr>
+          ))}
+          {products.length === 0 && (
+            <tr>
+              <td colSpan={5} style={{textAlign: 'center', padding: '2rem'}}>Mahsulotlar topilmadi.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  )
+}

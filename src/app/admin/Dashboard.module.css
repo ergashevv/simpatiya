@@ -1,0 +1,53 @@
+.title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  border: 1px solid #eef0f3;
+}
+
+.statCard h3 {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: #777;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.welcomeInfo {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  border: 1px solid #eef0f3;
+}
+
+.welcomeInfo h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.welcomeInfo p {
+  color: #555;
+  line-height: 1.6;
+}
