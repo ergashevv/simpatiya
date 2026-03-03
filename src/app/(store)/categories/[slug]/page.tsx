@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import prisma from '@/lib/prisma'
 import { CategoryThemeSetter } from '@/components/CategoryThemeSetter'
@@ -6,12 +7,41 @@ import { CategoryHeader } from './CategoryHeader'
 import { CategoryEmptyState } from './CategoryEmptyState'
 import styles from './CategoryPage.module.css'
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
   const { slug } = await params
   const category = await prisma.category.findUnique({ where: { slug } })
+
+  if (!category) {
+    return {
+      title: 'Категория не найдена | Simpaty',
+      description: 'Запрошенная категория не найдена в каталоге Simpaty.',
+    }
+  }
+
+  const titleRu = category.nameRu || category.nameUz
+  const description =
+    `Simpaty — категория «${titleRu}» с премиальной женской одеждой в Узбекистане. ` +
+    'Выберите образ для особых случаев и на каждый день.'
+
   return {
-    title: category ? `${category.nameUz} | Simpaty` : 'Kategoriya | Simpaty',
-    description: category ? `Simpaty - ${category.nameUz} kolleksiyasi` : '',
+    title: `${titleRu} | Simpaty`,
+    description,
+    openGraph: {
+      title: `${titleRu} | Simpaty`,
+      description,
+      images: category.imageUrl
+        ? [
+            {
+              url: category.imageUrl,
+              alt: titleRu,
+            },
+          ]
+        : undefined,
+    },
   }
 }
 

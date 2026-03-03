@@ -16,12 +16,14 @@
 }
 
 .logo {
-  font-family: var(--font-serif);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--primary-color);
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoImage {
+  display: block;
+  height: auto;
 }
 
 .nav {

@@ -1,11 +1,13 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import prisma from '@/lib/prisma'
 import styles from './CategoriesListPage.module.css'
 import { CategoryGrid, CategoriesPageHeader } from './CategoryGrid'
 
-export const metadata = {
-  title: 'Barcha Kategoriyalar | Simpaty',
-  description: "Simpaty do'konining barcha kiyim-kechak kategoriyalari",
+export const metadata: Metadata = {
+  title: 'Категории женской одежды | Simpaty',
+  description:
+    'Все категории премиальной женской одежды Simpaty: вечерние платья, деловой стиль, весенние коллекции и элегантные аксессуары.',
 }
 
 export default async function CategoriesPage() {

@@ -84,7 +84,7 @@ const translations: Record<Language, Record<string, string>> = {
 }
 
 const I18nContext = createContext<I18nContextType>({
-  lang: 'uz',
+  lang: 'ru',
   setLang: () => {},
   t: (key) => key,
 })
@@ -92,10 +92,7 @@ const I18nContext = createContext<I18nContextType>({
 export const useI18n = () => useContext(I18nContext)
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  // Always start with 'uz' — identical on server AND first client render.
-  // This prevents the hydration mismatch where the server renders 'uz' text
-  // but the client immediately reads 'ru' from localStorage before React hydrates.
-  const [lang, setLang] = useState<Language>('uz')
+  const [lang, setLang] = useState<Language>('ru')
 
   // After the component mounts (client-only), sync to the saved preference.
   // We use startTransition so the state update is non-urgent (avoids cascading render warning).
