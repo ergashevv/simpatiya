@@ -2,7 +2,6 @@
 
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useI18n } from '@/lib/i18n'
 import styles from './Header.module.css'
 import { ShoppingBag, User } from 'lucide-react'
@@ -18,13 +17,14 @@ export function Header() {
           className={styles.logo}
           aria-label="Simpaty — магазин женской одежды премиум-класса"
         >
-          <Image
+          {/* Native img avoids any SVG optimisation issues for the logo */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/logo-simpaty.svg"
             alt="Simpaty — женская одежда премиум-класса"
             width={140}
             height={36}
             className={styles.logoImage}
-            priority
           />
         </Link>
         <nav className={styles.nav}>

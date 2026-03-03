@@ -1,9 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" role="img" aria-labelledby="title desc">
-  <title id="title">Simpaty  65=A:0O >45640 ?@5<8C<-:;0AA0</title>
-  <desc id="desc">>3>B8? 1@5=40 Simpaty A M;530=B=>9 =04?8ALN 1>@4>2K< F25B>< =0 A25B;>< D>=5.</desc>
+  <title id="title">Simpaty — женская одежда премиум-класса</title>
+  <desc id="desc">Логотип бренда Simpaty с элегантной бордовой надписью на светлом фоне.</desc>
   <rect width="320" height="80" fill="#f9f4f2"/>
-  <text x="50%" y="52%" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" fill="#800020" letter-spacing="6">
+  <text
+    x="50%"
+    y="52%"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="34"
+    fill="#800020"
+    letter-spacing="6"
+  >
     SIMPATY
   </text>
 </svg>
-

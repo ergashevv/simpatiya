@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Providers } from './Providers'
 
-const siteUrl = 'https://simpatiya.uz'
+const siteUrl = 'https://www.simpatiya.uz'
 
 const organizationJsonLd = {
   '@context': 'https://schema.org',

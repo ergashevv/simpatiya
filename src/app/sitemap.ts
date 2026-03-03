@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import prisma from '@/lib/prisma'
 
-const siteUrl = 'https://simpatiya.uz'
+const siteUrl = 'https://www.simpatiya.uz'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [categories, products] = await Promise.all([
