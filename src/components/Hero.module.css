@@ -34,11 +34,13 @@
 }
 
 .title {
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 300;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 4px;
   margin-bottom: 40px;
+  color: #fff !important; /* Ensure it stays white as intended for Hero */
+  font-family: var(--font-sans); /* Use Sans for a more modern Zara-like look if serif is too traditional here */
 }
 
 .subtitle {
@@ -130,14 +132,37 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    height: 80vh; /* slightly shorter on mobile for better visibility of next section */
+  }
   .title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    line-height: 1.2;
+  }
+  .tagline {
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
   }
   .actions {
     flex-direction: column;
-    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
   }
   .btn, .btnSecondary {
-    width: 200px;
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+  .scrollHint {
+    bottom: 20px;
+  }
+  .scrollHintMouse {
+    height: 40px;
   }
 }

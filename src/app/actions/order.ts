@@ -14,14 +14,12 @@ export async function placeOrder(formData: FormData) {
       session = await verifyToken(token)
     }
 
-    if (!session || !session.sub) {
-      return { success: false, error: "Iltimos, avval tizimga kiring (Login)" }
-    }
-
     const productId = formData.get('productId') as string
     const clientName = formData.get('clientName') as string
     const clientPhone = formData.get('clientPhone') as string
     const address = formData.get('address') as string
+    const selectedColor = formData.get('selectedColor') as string
+    const selectedSize = formData.get('selectedSize') as string
 
     if (!productId || !clientName || !clientPhone) {
       return { success: false, error: "Barcha majburiy maydonlarni to'ldiring" }
@@ -29,11 +27,13 @@ export async function placeOrder(formData: FormData) {
 
     await prisma.order.create({
       data: {
-        userId: session.sub,
+        userId: session?.sub ?? undefined,
         productId,
         clientName,
         clientPhone,
         address,
+        selectedColor,
+        selectedSize,
       }
     })
 

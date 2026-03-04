@@ -40,11 +40,27 @@
   margin-bottom: 0.5rem;
 }
 
-.subtitle {
-  color: var(--text-muted);
-  font-size: 1.1rem;
+.productSummary {
   margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 4px;
 }
+
+.productName {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+}
+
+.selectionSummary {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 
 .formGroup {
   margin-bottom: 1.5rem;

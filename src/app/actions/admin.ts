@@ -2,6 +2,7 @@
 
 import prisma from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
+import { OrderStatus } from '@prisma/client'
 
 // ─── CATEGORY ACTIONS ────────────────────────────────────────────────────────
 
@@ -61,6 +62,12 @@ export async function saveProduct(formData: FormData) {
   const primaryImage = formData.get('primaryImage') as string
   const isActiveRaw = formData.get('isActive') as string
   const isActive = isActiveRaw === 'true'
+  
+  const colorsRaw = formData.get('colors') as string
+  const sizesRaw = formData.get('sizes') as string
+  
+  const colors = colorsRaw ? colorsRaw.split(',').map(s => s.trim()).filter(Boolean) : []
+  const sizes = sizesRaw ? sizesRaw.split(',').map(s => s.trim()).filter(Boolean) : []
 
   if (!nameUz || !slug || !categoryId || isNaN(price)) {
     return { error: "Majburiy maydonlar: Nomi, Slug, Kategoriya va Narx" }
@@ -70,14 +77,14 @@ export async function saveProduct(formData: FormData) {
     // UPDATE
     await prisma.product.update({
       where: { id },
-      data: { nameUz, nameRu, descriptionUz, descriptionRu, price, primaryImage, categoryId, isActive, slug }
+      data: { nameUz, nameRu, descriptionUz, descriptionRu, price, primaryImage, categoryId, isActive, slug, colors, sizes }
     })
   } else {
     // CREATE
     await prisma.product.upsert({
       where: { slug },
-      update: { nameUz, nameRu, descriptionUz, descriptionRu, price, primaryImage, categoryId, isActive },
-      create: { slug, nameUz, nameRu, descriptionUz, descriptionRu, price, primaryImage, categoryId, images: [], isActive }
+      update: { nameUz, nameRu, descriptionUz, descriptionRu, price, primaryImage, categoryId, isActive, colors, sizes },
+      create: { slug, nameUz, nameRu, descriptionUz, descriptionRu, price, primaryImage, categoryId, images: [], isActive, colors, sizes }
     })
   }
 
@@ -99,7 +106,7 @@ export async function deleteProduct(id: string) {
 
 // ─── ORDER ACTIONS ───────────────────────────────────────────────────────────
 
-export async function updateOrderStatus(orderId: string, status: any) {
+export async function updateOrderStatus(orderId: string, status: OrderStatus) {
   await prisma.order.update({
     where: { id: orderId },
     data: { status }

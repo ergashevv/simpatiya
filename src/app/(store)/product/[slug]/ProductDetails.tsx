@@ -12,6 +12,8 @@ type ProductWithCategory = Product & { category: Category }
 export function ProductDetails({ product }: { product: ProductWithCategory }) {
   const { lang, t } = useI18n()
   const [isModalOpen, setModalOpen] = useState(false)
+  const [selectedColor, setSelectedColor] = useState<string | null>(product.colors[0] || null)
+  const [selectedSize, setSelectedSize] = useState<string | null>(product.sizes[0] || null)
   
   const allImages = [product.primaryImage, ...product.images].filter(Boolean) as string[]
 
@@ -55,6 +57,42 @@ export function ProductDetails({ product }: { product: ProductWithCategory }) {
             <p className={styles.price}>{priceFormatted}</p>
             
             <div className={styles.divider} />
+
+            {/* Color Selection */}
+            {product.colors && product.colors.length > 0 && (
+              <div className={styles.selectionGroup}>
+                <label className={styles.selectionLabel}>{t('product.color')} : {selectedColor}</label>
+                <div className={styles.colorOptions}>
+                  {product.colors.map(color => (
+                    <button 
+                      key={color}
+                      className={`${styles.colorTick} ${selectedColor === color ? styles.active : ''}`}
+                      onClick={() => setSelectedColor(color)}
+                      style={{ backgroundColor: color.toLowerCase() }}
+                      title={color}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Size Selection */}
+            {product.sizes && product.sizes.length > 0 && (
+              <div className={styles.selectionGroup}>
+                <label className={styles.selectionLabel}>{t('product.size')}</label>
+                <div className={styles.sizeOptions}>
+                  {product.sizes.map(size => (
+                    <button 
+                      key={size}
+                      className={`${styles.sizeTick} ${selectedSize === size ? styles.active : ''}`}
+                      onClick={() => setSelectedSize(size)}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             
             <div className={styles.description} dangerouslySetInnerHTML={{ __html: description || '' }} />
             
@@ -77,6 +115,8 @@ export function ProductDetails({ product }: { product: ProductWithCategory }) {
         isOpen={isModalOpen} 
         onClose={() => setModalOpen(false)} 
         product={product} 
+        selectedColor={selectedColor}
+        selectedSize={selectedSize}
       />
     </div>
   )

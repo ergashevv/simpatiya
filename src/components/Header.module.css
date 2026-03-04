@@ -102,8 +102,26 @@
 }
 
 @media (max-width: 768px) {
+  .headerContainer {
+    height: 60px;
+  }
+  .logoImage {
+    width: 100px;
+    height: auto;
+  }
   .nav {
-    display: none; /* simple mobile view for now */
+    display: none;
+  }
+  .actions {
+    gap: 0.8rem;
+  }
+  .langBtn {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+  .iconBtn svg {
+    width: 18px;
+    height: 18px;
   }
 }
 

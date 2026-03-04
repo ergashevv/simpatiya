@@ -71,13 +71,24 @@ export default function CreateProductPage() {
           </select>
         </div>
 
+        <div className={styles.row}>
+          <div className={styles.formGroup}>
+            <label>Ranglar (vergul bilan ajrating) masalan: Red, Blue, Black</label>
+            <input name="colors" placeholder="Red, Blue, Black" className={styles.input} />
+          </div>
+          <div className={styles.formGroup}>
+            <label>O'lchamlar (vergul bilan ajrating) masalan: S, M, L, XL</label>
+            <input name="sizes" placeholder="S, M, L, XL" className={styles.input} />
+          </div>
+        </div>
+
         <div className={styles.formGroup}>
-          <label>Ta'rif (UZ)</label>
+          <label>Ta&apos;rif (UZ)</label>
           <textarea name="descriptionUz" rows={4} className={styles.textarea} />
         </div>
 
         <div className={styles.formGroup}>
-          <label>Ta'rif (RU)</label>
+          <label>Ta&apos;rif (RU)</label>
           <textarea name="descriptionRu" rows={4} className={styles.textarea} />
         </div>
 

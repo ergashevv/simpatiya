@@ -11,11 +11,15 @@ import styles from './OrderModal.module.css'
 export function OrderModal({ 
   isOpen, 
   onClose, 
-  product 
+  product,
+  selectedColor,
+  selectedSize
 }: { 
   isOpen: boolean
   onClose: () => void
-  product: Product 
+  product: Product,
+  selectedColor?: string | null,
+  selectedSize?: string | null
 }) {
   const { t, lang } = useI18n()
   const [loading, setLoading] = useState(false)
@@ -29,6 +33,8 @@ export function OrderModal({
 
     const formData = new FormData(e.currentTarget)
     formData.append('productId', product.id)
+    if (selectedColor) formData.append('selectedColor', selectedColor)
+    if (selectedSize) formData.append('selectedSize', selectedSize)
     
     try {
       const res = await placeOrder(formData)
@@ -37,7 +43,7 @@ export function OrderModal({
       } else {
         setError(res.error || 'Xatolik yuz berdi')
       }
-    } catch (err) {
+    } catch {
       setError('Tizim xatosi')
     } finally {
       setLoading(false)
@@ -61,15 +67,24 @@ export function OrderModal({
           </button>
           
           <h2 className={styles.title}>{t('product.order')}</h2>
-          <p className={styles.subtitle}>
-            {lang === 'uz' ? product.nameUz : product.nameRu}
-          </p>
+          <div className={styles.productSummary}>
+            <p className={styles.productName}>
+              {lang === 'uz' ? product.nameUz : product.nameRu}
+            </p>
+            {(selectedColor || selectedSize) && (
+              <p className={styles.selectionSummary}>
+                {selectedColor && <span>{t('product.color')}: {selectedColor}</span>}
+                {selectedColor && selectedSize && <span> | </span>}
+                {selectedSize && <span>{t('product.size')}: {selectedSize}</span>}
+              </p>
+            )}
+          </div>
           
           {success ? (
             <div className={styles.success}>
               <h3>{t('order.success')}</h3>
-              <p>Tez orada menejerlarimiz siz bilan bog'lanishadi.</p>
-              <button className={styles.btn} onClick={onClose}>Yopish</button>
+              <p>{t('order.success.desc')}</p>
+              <button className={styles.btn} onClick={onClose}>{t('common.close')}</button>
             </div>
           ) : (
             <form className={styles.form} onSubmit={handleSubmit}>
@@ -86,8 +101,8 @@ export function OrderModal({
               </div>
 
               <div className={styles.formGroup}>
-                <label className={styles.label}>{t('form.address')} (Ixtiyoriy)</label>
-                <textarea name="address" className={styles.input} rows={2} />
+                <label className={styles.label}>{t('form.address')} *</label>
+                <textarea name="address" className={styles.input} rows={2} required />
               </div>
               
               <button 
@@ -95,7 +110,7 @@ export function OrderModal({
                 className={styles.submitBtn}
                 disabled={loading}
               >
-                {loading ? 'Kuting...' : t('form.submit')}
+                {loading ? t('common.loading') : t('form.submit')}
               </button>
             </form>
           )}

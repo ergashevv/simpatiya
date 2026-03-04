@@ -69,6 +69,78 @@
   font-weight: 300;
 }
 
+.selectionGroup {
+  margin-bottom: 35px;
+}
+
+.selectionLabel {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.colorOptions {
+  display: flex;
+  gap: 12px;
+}
+
+.colorTick {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  position: relative;
+}
+
+.colorTick.active {
+  border: 1px solid #000;
+  transform: scale(1.1);
+}
+
+.colorTick.active::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 1px solid #000;
+  border-radius: 50%;
+}
+
+.sizeOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sizeTick {
+  padding: 8px 16px;
+  border: 1px solid #eee;
+  background: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 50px;
+}
+
+.sizeTick:hover {
+  border-color: #999;
+}
+
+.sizeTick.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+
 .orderBtn {
   width: 100%;
   padding: 18px;

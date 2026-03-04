@@ -28,6 +28,7 @@ export default async function AdminOrdersPage() {
             <th>Mijoz Ismi</th>
             <th>Telefon</th>
             <th>Mahsulot</th>
+            <th>Rang / O&apos;lcham</th>
             <th>Manzil</th>
             <th>Status</th>
             <th>O&apos;chirish</th>
@@ -48,6 +49,11 @@ export default async function AdminOrdersPage() {
                 <a href={`/product/${o.product.slug}`} target="_blank" style={{color: 'var(--primary-color)', fontWeight: 500}}>
                   {o.product.nameUz}
                 </a>
+              </td>
+              <td style={{ fontSize: '0.85rem' }}>
+                {o.selectedColor && <span className={styles.tag}>{o.selectedColor}</span>}
+                {o.selectedSize && <span className={styles.tag} style={{background: '#f3f4f6', color: '#374151'}}>{o.selectedSize}</span>}
+                {!o.selectedColor && !o.selectedSize && '-'}
               </td>
               <td style={{maxWidth: '150px', fontSize: '0.9rem'}}>{o.address || '-'}</td>
               <td>

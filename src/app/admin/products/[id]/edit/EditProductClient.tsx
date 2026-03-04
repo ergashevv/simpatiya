@@ -17,6 +17,8 @@ type Product = {
   price: number
   primaryImage: string | null
   isActive: boolean
+  colors: string[]
+  sizes: string[]
 }
 
 type Category = {
@@ -90,6 +92,17 @@ export default function EditProductClient({ product, categories }: { product: Pr
               <option value="true">Faol</option>
               <option value="false">Nofaol</option>
             </select>
+          </div>
+        </div>
+
+        <div className={styles.row}>
+          <div className={styles.formGroup}>
+            <label>Ranglar (vergul bilan ajrating)</label>
+            <input name="colors" defaultValue={product.colors?.join(', ') || ''} className={styles.input} />
+          </div>
+          <div className={styles.formGroup}>
+            <label>O&apos;lchamlar (vergul bilan ajrating)</label>
+            <input name="sizes" defaultValue={product.sizes?.join(', ') || ''} className={styles.input} />
           </div>
         </div>
 
