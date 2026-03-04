@@ -24,6 +24,7 @@ export default function SignupPage() {
       if (res.error) {
         setError(res.error)
       } else if (res.success) {
+        router.refresh()
         router.push('/')
       }
     } catch {

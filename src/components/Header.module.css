@@ -99,3 +99,17 @@
     display: none; /* simple mobile view for now */
   }
 }
+
+.adminBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #800020;
+  color: white;
+  font-size: 0.5rem;
+  padding: 1px 4px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  pointer-events: none;
+}

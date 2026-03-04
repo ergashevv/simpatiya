@@ -6,10 +6,20 @@ import { useI18n } from '@/lib/i18n'
 import styles from './Header.module.css'
 import { User, Search } from 'lucide-react'
 import { SearchModal } from './SearchModal'
+import { getUser } from '@/app/actions/auth'
 
 export function Header() {
   const { t, lang, setLang } = useI18n()
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
+  const [user, setUser] = React.useState<{ name: string | null; role: string } | null>(null)
+
+  React.useEffect(() => {
+    async function checkUser() {
+      const userData = await getUser()
+      setUser(userData)
+    }
+    checkUser()
+  }, [])
 
   return (
     <header className={styles.header}>
@@ -50,8 +60,13 @@ export function Header() {
           >
             <Search size={20} />
           </button>
-          <Link href="/login" className={styles.iconBtn} aria-label={t('nav.login')}>
+          <Link 
+            href={user ? "/profile" : "/login"} 
+            className={styles.iconBtn} 
+            aria-label={user ? t('profile.title') : t('nav.login')}
+          >
             <User size={20} />
+            {user && user.role === 'ADMIN' && <span className={styles.adminBadge}>Admin</span>}
           </Link>
         </div>
       </div>

@@ -69,6 +69,11 @@ const translations: Record<Language, Record<string, string>> = {
     'search.viewAll': 'Barchasini ko\'rish',
     'search.popular': 'Ommabop kategoriyalar',
     'category.shopNow': 'Sotib olish',
+    'profile.title': 'Mening profilim',
+    'profile.info': 'Shaxsiy ma\'lumotlar',
+    'profile.orders': 'Buyurtmalar tarixi',
+    'profile.noOrders': 'Sizda hali buyurtmalar yo\'q',
+    'profile.joined': 'Ro\'yxatdan o\'tgan sana',
   },
   ru: {
     'home.hero.title': 'Женская одежда премиум-класса',
@@ -128,6 +133,11 @@ const translations: Record<Language, Record<string, string>> = {
     'search.viewAll': 'Посмотреть все результаты',
     'search.popular': 'Популярные категории',
     'category.shopNow': 'Купить сейчас',
+    'profile.title': 'Мой профиль',
+    'profile.info': 'Личные данные',
+    'profile.orders': 'История заказов',
+    'profile.noOrders': 'У вас пока нет заказов',
+    'profile.joined': 'Дата регистрации',
   },
 }
 

@@ -24,6 +24,7 @@ export default function LoginPage() {
       if (res.error) {
         setError(res.error)
       } else if (res.success) {
+        router.refresh()
         if (res.role === 'ADMIN') {
           router.push('/admin')
         } else {

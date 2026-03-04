@@ -1,7 +1,7 @@
 'use server'
 
 import prisma from '@/lib/prisma'
-import { setSession, clearSession } from '@/lib/auth'
+import { setSession, clearSession, getSession } from '@/lib/auth'
 import bcrypt from 'bcryptjs'
 
 export async function login(formData: FormData) {
@@ -52,4 +52,39 @@ export async function signup(formData: FormData) {
 export async function logout() {
   await clearSession()
   return { success: true }
+}
+
+export async function getUser() {
+  const session = await getSession()
+  if (!session) return null
+
+  const user = await prisma.user.findUnique({
+    where: { id: session.sub as string },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      role: true,
+      createdAt: true
+    }
+  })
+
+  return user
+}
+
+export async function getUserOrders() {
+  const session = await getSession()
+  if (!session) return []
+
+  const orders = await prisma.order.findMany({
+    where: { userId: session.sub as string },
+    include: {
+      product: true
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+
+  return orders
 }
