@@ -69,6 +69,8 @@
 
 .langBtn {
   background: transparent;
+  border: none;
+  cursor: pointer;
   color: var(--text-main);
   font-weight: 600;
   font-size: 14px;
@@ -83,6 +85,11 @@
 }
 
 .iconBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
   color: var(--text-main);
   transition: color var(--transition-fast);
   display: flex;
