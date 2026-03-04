@@ -2,29 +2,45 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Product } from '@prisma/client'
 import { useI18n } from '@/lib/i18n'
-import { placeOrder } from '@/app/actions/order'
-import { X } from 'lucide-react'
+import { placeCartOrder } from '@/app/actions/order'
+import { X, ShoppingBag } from 'lucide-react'
 import styles from './OrderModal.module.css'
+import { useCart } from '@/store/useCart'
 
-export function OrderModal({ 
+interface CartItem {
+  id: string
+  productId: string
+  name: string
+  price: number
+  quantity: number
+  image: string
+  color?: string
+  size?: string
+  slug: string
+}
+
+export function CartOrderModal({ 
   isOpen, 
-  onClose, 
-  product,
-  selectedColor,
-  selectedSize
+  onClose,
+  items
 }: { 
   isOpen: boolean
   onClose: () => void
-  product: Product,
-  selectedColor?: string | null,
-  selectedSize?: string | null
+  items: CartItem[]
 }) {
   const { t, lang } = useI18n()
+  const { clearCart } = useCart()
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
+
+  const totalPrice = items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+  const formattedTotal = new Intl.NumberFormat(lang === 'uz' ? 'uz-UZ' : 'ru-RU', {
+    style: 'currency',
+    currency: 'UZS',
+    minimumFractionDigits: 0,
+  }).format(totalPrice)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -32,14 +48,22 @@ export function OrderModal({
     setError('')
 
     const formData = new FormData(e.currentTarget)
-    formData.append('productId', product.id)
-    if (selectedColor) formData.append('selectedColor', selectedColor)
-    if (selectedSize) formData.append('selectedSize', selectedSize)
+    
+    // Simplify items for the server action
+    const simplifiedItems = items.map(item => ({
+      productId: item.productId,
+      quantity: item.quantity,
+      color: item.color,
+      size: item.size
+    }))
+    
+    formData.append('items', JSON.stringify(simplifiedItems))
     
     try {
-      const res = await placeOrder(formData)
+      const res = await placeCartOrder(formData)
       if (res.success) {
         setSuccess(true)
+        clearCart()
       } else {
         setError(res.error || 'Xatolik yuz berdi')
       }
@@ -66,18 +90,16 @@ export function OrderModal({
             <X size={24} />
           </button>
           
-          <h2 className={styles.title}>{t('product.order')}</h2>
-          <div className={styles.productSummary}>
-            <p className={styles.productName}>
-              {lang === 'uz' ? product.nameUz : product.nameRu}
+          <h2 className={styles.title}>{t('cart.checkout')}</h2>
+          
+          <div className={styles.cartSummary}>
+            <div className={styles.summaryInfo}>
+              <ShoppingBag size={20} />
+              <span>{items.length} {lang === 'uz' ? 'ta mahsulot' : 'товара'}</span>
+            </div>
+            <p className={styles.totalAmount}>
+              {lang === 'uz' ? 'Jami summa' : 'Общая сумма'}: <strong>{formattedTotal}</strong>
             </p>
-            {(selectedColor || selectedSize) && (
-              <p className={styles.selectionSummary}>
-                {selectedColor && <span>{t('product.color')}: {selectedColor}</span>}
-                {selectedColor && selectedSize && <span> | </span>}
-                {selectedSize && <span>{t('product.size')}: {selectedSize}</span>}
-              </p>
-            )}
           </div>
           
           {success ? (
@@ -102,7 +124,13 @@ export function OrderModal({
 
               <div className={styles.formGroup}>
                 <label className={styles.label}>{t('form.address')} *</label>
-                <textarea name="address" className={styles.input} rows={2} required placeholder={lang === 'uz' ? 'Shahar, tuman, ko‘cha va uy manzili' : 'Адрес доставки'} />
+                <textarea 
+                  name="address" 
+                  className={styles.input} 
+                  rows={2} 
+                  required 
+                  placeholder={lang === 'uz' ? 'Shahar, tuman, ko‘cha va uy manzili' : 'Адрес доставки'}
+                />
               </div>
               
               <button 

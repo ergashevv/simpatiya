@@ -9,7 +9,10 @@ export function CategoryEmptyState() {
 
   return (
     <div className={styles.empty}>
-      <p>{t('category.empty')}</p>
+      <h2 className={styles.emptyTitle}>{t('category.empty.title') || 'Hech narsa topilmadi'}</h2>
+      <p className={styles.emptyDesc}>
+        {t('category.empty.desc') || 'Kechirasiz, ushbu ruknda hozircha mahsulotlar mavjud emas. Tezp orada yangilanishlar bo\'ladi.'}
+      </p>
       <Link href="/categories" className={styles.backBtn}>
         {t('category.back')}
       </Link>

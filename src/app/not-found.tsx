@@ -19,7 +19,7 @@ export default function NotFound() {
           </h1>
           <p className={styles.subtitle}>
             {isUz
-              ? "Siz izlayotgan sahifa o‘chirib yuborilgan bo‘lishi yoki manzil noto‘g‘ri kiritilgan bo‘lishi mumkin."
+              ? "Siz qidirayotgan sahifa mavjud emas yoki boshqa manzilga ko‘chirilgan bo‘lishi mumkin."
               : 'Возможно, страница была удалена или адрес введён с ошибкой.'}
           </p>
           <div className={styles.divider} />
@@ -29,7 +29,7 @@ export default function NotFound() {
           <div className={styles.section}>
             <p className={styles.text}>
               {isUz
-                ? 'Bosh sahifaga yoki kategoriyalar bo‘limiga qaytib, siz uchun mos liboslarni topishingiz mumkin.'
+                ? "Bosh sahifaga qaytib, maxsus to'plamlarimiz bilan tanishishingizni tavsiya etamiz."
                 : 'Вы можете вернуться на главную страницу или в раздел категорий и подобрать подходящий образ.'}
             </p>
           </div>

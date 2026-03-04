@@ -29,9 +29,9 @@ export default async function DashboardPage() {
       
       <div className={styles.welcomeInfo}>
         <h2>Simpaty E-Commerce Xush Kelibsiz!</h2>
-        <p>Chap tarafdagi menyudan kerakli bo'limni tanlang. Kategoriyalarni yaratishingiz, mahsulot qo'shishingiz hamda yangi tushgan buyurtmalarni boshqarishingiz mumkin.</p>
+        <p>Chap tarafdagi menyudan kerakli bo&apos;limni tanlang. Kategoriyalarni yaratishingiz, mahsulot qo&apos;shishingiz hamda yangi tushgan buyurtmalarni boshqarishingiz mumkin.</p>
         <br/>
-        <p><strong>Eslatma:</strong> Saytdagi ranglar dinamik tarzda Kategoriyalar bo'limidan har bir kategoriya uchun (Asosiy rang va Qo'shimcha rang) kiritilgan ranglar orqali avtomatik ishlaydi.</p>
+        <p><strong>Eslatma:</strong> Saytdagi ranglar dinamik tarzda Kategoriyalar bo&apos;limidan har bir kategoriya uchun (Asosiy rang va Qo&apos;shimcha rang) kiritilgan ranglar orqali avtomatik ishlaydi.</p>
       </div>
     </div>
   )

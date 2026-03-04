@@ -55,7 +55,7 @@ export default function CreateCategoryPage() {
             <input name="mainColor" type="color" defaultValue="#800020" className={styles.colorInput} />
           </div>
           <div className={styles.formGroup}>
-            <label>Qo'shimcha Rang (Hex) *</label>
+            <label>Qo&apos;shimcha Rang (Hex) *</label>
             <input name="secondaryColor" type="color" defaultValue="#d4af37" className={styles.colorInput} />
           </div>
         </div>

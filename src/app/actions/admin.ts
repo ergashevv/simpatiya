@@ -90,6 +90,8 @@ export async function saveProduct(formData: FormData) {
 
   revalidatePath('/admin/products')
   revalidatePath('/')
+  revalidatePath('/categories/[slug]', 'page')
+  revalidatePath(`/categories/${categoryId}`) // If product details are fetched via category
   return { success: true }
 }
 

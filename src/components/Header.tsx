@@ -4,14 +4,19 @@ import React from 'react'
 import Link from 'next/link'
 import { useI18n } from '@/lib/i18n'
 import styles from './Header.module.css'
-import { User, Search } from 'lucide-react'
+import { User, Search, Heart, ShoppingBag } from 'lucide-react'
 import { SearchModal } from './SearchModal'
 import { getUser } from '@/app/actions/auth'
+import { useCart } from '@/store/useCart'
+import { useWishlist } from '@/store/useWishlist'
 
 export function Header() {
   const { t, lang, setLang } = useI18n()
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
   const [user, setUser] = React.useState<{ name: string | null; role: string } | null>(null)
+  
+  const cartCount = useCart(state => state.totalItems())
+  const wishlistCount = useWishlist(state => state.items.length)
 
   React.useEffect(() => {
     async function checkUser() {
@@ -27,13 +32,11 @@ export function Header() {
         <Link
           href="/"
           className={styles.logo}
-          aria-label="Simpaty — магазин женской одежды премиум-класса"
+          aria-label="Simpaty"
         >
-          {/* Native img avoids any SVG optimisation issues for the logo */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo-simpaty.svg"
-            alt="Simpaty — женская одежда премиум-класса"
+            alt="Simpaty"
             width={140}
             height={36}
             className={styles.logoImage}
@@ -53,13 +56,33 @@ export function Header() {
           >
             {lang.toUpperCase()}
           </button>
+          
           <button 
             className={styles.iconBtn} 
             onClick={() => setIsSearchOpen(true)}
-            aria-label={t('nav.search') || 'Search'}
+            aria-label={t('nav.search')}
           >
             <Search size={20} />
           </button>
+
+          <Link 
+            href="/wishlist" 
+            className={styles.iconBtn} 
+            aria-label={t('nav.wishlist')}
+          >
+            <Heart size={20} />
+            {wishlistCount > 0 && <span className={styles.badge}>{wishlistCount}</span>}
+          </Link>
+
+          <Link 
+            href="/cart"
+            className={styles.iconBtn} 
+            aria-label={t('nav.cart')}
+          >
+            <ShoppingBag size={20} />
+            {cartCount > 0 && <span className={styles.badge}>{cartCount}</span>}
+          </Link>
+
           <Link 
             href={user ? "/profile" : "/login"} 
             className={styles.iconBtn} 

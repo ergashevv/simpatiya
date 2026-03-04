@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
+import Image from 'next/image'
 import styles from '../AdminForms.module.css'
 import { ProductActions } from './ProductActions'
 
@@ -35,7 +36,7 @@ export default async function AdminProductsPage() {
             <tr key={p.id}>
               <td>
                 {p.primaryImage ? (
-                  <img
+                  <Image
                     src={p.primaryImage}
                     alt={p.nameUz}
                     width={50}

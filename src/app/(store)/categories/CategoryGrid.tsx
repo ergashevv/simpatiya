@@ -33,8 +33,30 @@ export function CategoryGrid({ categories }: { categories: Category[] }) {
     )
   }
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
+  }
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+  }
+
   return (
-    <div className={styles.grid}>
+    <motion.div 
+      className={styles.grid}
+      variants={container}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true }}
+    >
       {categories.map((category) => {
         const name = lang === 'uz' ? category.nameUz : category.nameRu
         const countLabel = lang === 'uz'
@@ -42,31 +64,29 @@ export function CategoryGrid({ categories }: { categories: Category[] }) {
           : `${category._count.products} ${t('category.products')}`
 
         return (
-          <Link
-            key={category.id}
-            href={`/categories/${category.slug}`}
-            className={styles.card}
-          >
-            <div className={styles.imageWrapper}>
-              <motion.img
-                src={category.imageUrl || PLACEHOLDER}
-                alt={name}
-                className={styles.image}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1 }}
-              />
-              <div className={styles.overlay} />
-            </div>
-            <div className={styles.content}>
-              <h2 className={styles.name}>{name}</h2>
-              <span className={styles.count}>{countLabel}</span>
-            </div>
-          </Link>
+          <motion.div key={category.id} variants={item}>
+            <Link
+              href={`/categories/${category.slug}`}
+              className={styles.card}
+            >
+              <div className={styles.imageWrapper}>
+                <motion.img
+                  src={category.imageUrl || PLACEHOLDER}
+                  alt={name}
+                  className={styles.image}
+                  loading="lazy"
+                />
+                <div className={styles.overlay} />
+              </div>
+              <div className={styles.content}>
+                <h2 className={styles.name}>{name}</h2>
+                <span className={styles.count}>{countLabel}</span>
+              </div>
+            </Link>
+          </motion.div>
         )
       })}
-    </div>
+    </motion.div>
   )
 }
 
@@ -76,8 +96,22 @@ export function CategoriesPageHeader() {
   return (
     <div className={styles.header}>
       <div className="container">
-        <span className={styles.tagline}>Simpaty Collection</span>
-        <h1 className={styles.title}>{t('categories.all')}</h1>
+        <motion.span 
+          className={styles.tagline}
+          initial={{ opacity: 0, letterSpacing: '0px' }}
+          animate={{ opacity: 0.8, letterSpacing: '4px' }}
+          transition={{ duration: 1 }}
+        >
+          Simpaty Collection
+        </motion.span>
+        <motion.h1 
+          className={styles.title}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          {t('categories.all')}
+        </motion.h1>
       </div>
     </div>
   )

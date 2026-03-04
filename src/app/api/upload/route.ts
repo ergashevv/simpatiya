@@ -1,6 +1,5 @@
 import { put } from '@vercel/blob'
 import { NextResponse } from 'next/server'
-import { getSession } from '@/lib/auth'
 import { cookies } from 'next/headers'
 import { verifyToken } from '@/lib/auth'
 

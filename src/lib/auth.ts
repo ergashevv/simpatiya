@@ -1,11 +1,10 @@
 import { SignJWT, jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
-import { NextRequest } from 'next/server'
 
 const secretKey = process.env.JWT_SECRET || 'this-is-a-placeholder-secret-for-development'
 const key = new TextEncoder().encode(secretKey)
 
-export async function signToken(payload: any) {
+export async function signToken(payload: Record<string, unknown>) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -17,7 +16,7 @@ export async function verifyToken(token: string) {
   try {
     const { payload } = await jwtVerify(token, key)
     return payload
-  } catch (err) {
+  } catch {
     return null
   }
 }
@@ -29,7 +28,7 @@ export async function getSession() {
   return await verifyToken(token)
 }
 
-export async function setSession(payload: any) {
+export async function setSession(payload: Record<string, unknown>) {
   const token = await signToken(payload)
   const cookieStore = await cookies()
   cookieStore.set('session', token, {

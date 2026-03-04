@@ -21,7 +21,7 @@ export default function GlobalError() {
               </h1>
               <p className={styles.subtitle}>
                 {isUz
-                  ? "Saytda kutilmagan xatolik yuz berdi. Iltimos, sahifani yangilab ko‘ring yoki biroz vaqtdan so‘ng qayta urinib ko‘ring."
+                  ? "Kutilmagan xatolik yuz berdi. Iltimos, sahifani yangilab ko‘ring yoki biroz kuting."
                   : 'Произошла непредвиденная ошибка. Обновите страницу или попробуйте зайти чуть позже.'}
               </p>
               <div className={styles.divider} />
@@ -31,7 +31,7 @@ export default function GlobalError() {
               <div className={styles.section}>
                 <p className={styles.text}>
                   {isUz
-                    ? "Agar xatolik takrorlanaversa, iltimos, biz bilan aloqa bo‘limi orqali bog‘laning."
+                    ? "Xatolik takrorlangan taqdirda, biz bilan bog'lanishingizni so'raymiz."
                     : 'Если ошибка повторяется, пожалуйста, свяжитесь с нами через раздел контактов.'}
                 </p>
               </div>

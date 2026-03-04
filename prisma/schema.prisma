@@ -17,6 +17,7 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   orders       Order[]
+  wishlists    Wishlist[]
 }
 
 model Category {
@@ -62,12 +63,26 @@ model Product {
   colors        String[]     @default([])
   sizes         String[]     @default([])
   isActive      Boolean      @default(true)
+  details       Json?        @default("{}")
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   orders        Order[]
+  wishlists     Wishlist[]
   category      Category     @relation(fields: [categoryId], references: [id])
   subCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
 }
+
+model Wishlist {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+}
+
 
 model Order {
   id            String      @id @default(cuid())

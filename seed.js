@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 
@@ -120,6 +121,16 @@ async function main() {
       price: 1450000,
       primaryImage: '/hero-new-collection.png',
       images: ['/hero-new-collection.png'],
+      colors: ['Cream', 'Black', 'Taupe'],
+      sizes: ['S', 'M', 'L'],
+      details: {
+        materialUz: "100% Jun",
+        materialRu: "100% Шерсть",
+        liningUz: "Ipak",
+        liningRu: "Шелк",
+        fitUz: "Oversize",
+        fitRu: "Оверсайз"
+      },
       isActive: true,
     },
     // EVENING WEAR
@@ -134,6 +145,16 @@ async function main() {
       price: 2100000,
       primaryImage: '/cat-evening.png',
       images: ['/cat-evening.png'],
+      colors: ['Black', 'Navy', 'Emerald'],
+      sizes: ['XS', 'S', 'M', 'L'],
+      details: {
+        fabricUz: "Asl Ipak",
+        fabricRu: "Натуральный Шелк",
+        lengthUz: "Maksi",
+        lengthRu: "Макси",
+        styleUz: "Ochiq yelka",
+        styleRu: "Открытые плечи"
+      },
       isActive: true,
     },
     {
@@ -147,6 +168,14 @@ async function main() {
       price: 980000,
       primaryImage: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=1000',
       images: ['https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=1000'],
+      colors: ['Silver', 'Gold', 'Rose Gold'],
+      sizes: ['S', 'M'],
+      details: {
+        fabricUz: "Lureks va To'r",
+        fabricRu: "Люрекс и Сетка",
+        lengthUz: "Mini",
+        lengthRu: "Мини"
+      },
       isActive: true,
     },
     // OUTERWEAR
@@ -161,6 +190,14 @@ async function main() {
       price: 1850000,
       primaryImage: '/cat-outerwear.png',
       images: ['/cat-outerwear.png'],
+      colors: ['Camel', 'Beige'],
+      sizes: ['M', 'L', 'XL'],
+      details: {
+        materialUz: "Kashmir va Jun",
+        materialRu: "Кашемир и Шерсть",
+        tempUz: "-10°C gacha",
+        tempRu: "до -10°C"
+      },
       isActive: true,
     },
     {
@@ -174,6 +211,14 @@ async function main() {
       price: 1200000,
       primaryImage: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=1000',
       images: ['https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=1000'],
+      colors: ['Grey', 'Black'],
+      sizes: ['S', 'M', 'L'],
+      details: {
+        fillUz: "Ekologik Par",
+        fillRu: "Эко-пух",
+        waterproofUz: "Ha",
+        waterproofRu: "Да"
+      },
       isActive: true,
     },
     // ACCESSORIES
@@ -188,6 +233,13 @@ async function main() {
       price: 1150000,
       primaryImage: '/cat-accessories.png',
       images: ['/cat-accessories.png'],
+      colors: ['Brown', 'Black'],
+      details: {
+        materialUz: "Haqiqiy Charm",
+        materialRu: "Натуральная Кожа",
+        sizeUz: "35x25x15 sm",
+        sizeRu: "35x25x15 см"
+      },
       isActive: true,
     },
     {
@@ -200,6 +252,13 @@ async function main() {
       price: 250000,
       primaryImage: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&q=80&w=1000',
       images: ['https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&q=80&w=1000'],
+      colors: ['Floral', 'Abstract', 'Geometric'],
+      details: {
+        materialUz: "100% Ipak",
+        materialRu: "100% Шелк",
+        dimensionUz: "90x90 sm",
+        dimensionRu: "90x90 см"
+      },
       isActive: true,
     },
     // SHOES
@@ -214,6 +273,14 @@ async function main() {
       price: 950000,
       primaryImage: 'https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&q=80&w=1000',
       images: ['https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&q=80&w=1000'],
+      colors: ['Nude', 'Black', 'Red'],
+      sizes: ['36', '37', '38', '39'],
+      details: {
+        heelUz: "10 sm",
+        heelRu: "10 см",
+        materialUz: "Charm",
+        materialRu: "Кожа"
+      },
       isActive: true,
     },
     {
@@ -226,8 +293,17 @@ async function main() {
       price: 1350000,
       primaryImage: 'https://images.unsplash.com/photo-1520639889457-41d06e22bc21?auto=format&fit=crop&q=80&w=1000',
       images: ['https://images.unsplash.com/photo-1520639889457-41d06e22bc21?auto=format&fit=crop&q=80&w=1000'],
+      colors: ['Black', 'Burgundy'],
+      sizes: ['37', '38', '39', '40'],
+      details: {
+        soleUz: "Rezina",
+        soleRu: "Резина",
+        materialUz: "Haqiqiy Charm",
+        materialRu: "Натуральная Кожа"
+      },
       isActive: true,
     }
+
   ];
 
   for (const prod of productsData) {

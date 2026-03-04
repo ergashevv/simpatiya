@@ -2,14 +2,29 @@ import prisma from '@/lib/prisma'
 import { StatusUpdater } from './StatusUpdater'
 import { OrderDeleteBtn } from './OrderDeleteBtn'
 import styles from '../AdminForms.module.css'
-import { OrderStatus } from '@prisma/client'
+import { OrderStatus, User, Product } from '@prisma/client'
+
+interface AdminOrder {
+  id: string
+  createdAt: Date
+  clientName: string
+  clientPhone: string
+  address: string | null
+  selectedColor: string | null
+  selectedSize: string | null
+  status: OrderStatus
+  product: Product
+  user: User | null
+}
 
 export default async function AdminOrdersPage() {
-  const orders = await prisma.order.findMany({
+  const rawOrders = await prisma.order.findMany({
     include: { product: true, user: true },
     orderBy: { createdAt: 'desc' },
     take: 100,
   })
+
+  const orders = rawOrders as unknown as AdminOrder[]
 
   return (
     <div className={styles.container} style={{ maxWidth: '1300px' }}>
