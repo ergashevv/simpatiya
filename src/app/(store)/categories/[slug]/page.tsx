@@ -53,7 +53,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       subCategories: true,
       products: {
         where: { isActive: true },
-        orderBy: { createdAt: 'desc' }
+        orderBy: { createdAt: 'desc' },
+        take: 48,
       }
     }
   })

@@ -33,9 +33,16 @@ export default async function AdminCategoriesPage() {
             <tr key={c.id}>
               <td>
                 {c.imageUrl ? (
-                  <img src={c.imageUrl} alt={c.nameUz} />
+                  <img
+                    src={c.imageUrl}
+                    alt={c.nameUz}
+                    width={50}
+                    height={50}
+                    loading="lazy"
+                    style={{ objectFit: 'cover', borderRadius: 4 }}
+                  />
                 ) : (
-                  <div style={{width: 50, height: 50, background: '#eee', borderRadius: 4}} />
+                  <div style={{ width: 50, height: 50, background: '#eee', borderRadius: 4 }} />
                 )}
               </td>
               <td>{c.nameUz}</td>

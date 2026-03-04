@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useI18n } from '@/lib/i18n'
 import styles from './ProductCard.module.css'
 
@@ -23,7 +24,8 @@ type Product = {
   descriptionRu: string | null
 }
 
-const PLACEHOLDER = 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=2070&auto=format&fit=crop'
+const PLACEHOLDER =
+  'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=60&w=900&auto=format&fit=crop'
 
 export function ProductCard({ product }: { product: Product }) {
   const { lang, t } = useI18n()
@@ -45,11 +47,14 @@ export function ProductCard({ product }: { product: Product }) {
     >
       <Link href={`/product/${product.slug}`} className={styles.link}>
         <div className={styles.imageContainer}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={product.primaryImage || PLACEHOLDER}
             alt={name}
             className={styles.image}
+            width={400}
+            height={550}
+            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+            loading="lazy"
             onError={(e) => {
               const target = e.target as HTMLImageElement
               target.src = PLACEHOLDER

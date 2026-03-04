@@ -6,7 +6,8 @@ import { ProductActions } from './ProductActions'
 export default async function AdminProductsPage() {
   const products = await prisma.product.findMany({
     include: { category: true },
-    orderBy: { createdAt: 'desc' }
+    orderBy: { createdAt: 'desc' },
+    take: 100,
   })
 
   return (
@@ -34,9 +35,16 @@ export default async function AdminProductsPage() {
             <tr key={p.id}>
               <td>
                 {p.primaryImage ? (
-                  <img src={p.primaryImage} alt={p.nameUz} />
+                  <img
+                    src={p.primaryImage}
+                    alt={p.nameUz}
+                    width={50}
+                    height={50}
+                    loading="lazy"
+                    style={{ objectFit: 'cover', borderRadius: 4 }}
+                  />
                 ) : (
-                  <div style={{width: 50, height: 50, background: '#eee', borderRadius: 4}} />
+                  <div style={{ width: 50, height: 50, background: '#eee', borderRadius: 4 }} />
                 )}
               </td>
               <td><strong>{p.nameUz}</strong></td>

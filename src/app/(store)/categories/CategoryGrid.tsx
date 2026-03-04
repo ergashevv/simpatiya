@@ -3,9 +3,11 @@
 import React from 'react'
 import Link from 'next/link'
 import { useI18n } from '@/lib/i18n'
+import { motion } from 'framer-motion'
 import styles from './CategoriesListPage.module.css'
 
-const PLACEHOLDER = 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=2070&auto=format&fit=crop'
+const PLACEHOLDER =
+  'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=60&w=900&auto=format&fit=crop'
 
 type Category = {
   id: string
@@ -44,18 +46,16 @@ export function CategoryGrid({ categories }: { categories: Category[] }) {
             key={category.id}
             href={`/categories/${category.slug}`}
             className={styles.card}
-            style={{ '--cat-color': category.mainColor || '#800020' } as React.CSSProperties}
           >
             <div className={styles.imageWrapper}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <motion.img
                 src={category.imageUrl || PLACEHOLDER}
                 alt={name}
                 className={styles.image}
-                onError={(e) => {
-                  const img = e.target as HTMLImageElement
-                  img.src = PLACEHOLDER
-                }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1 }}
               />
               <div className={styles.overlay} />
             </div>
@@ -70,16 +70,14 @@ export function CategoryGrid({ categories }: { categories: Category[] }) {
   )
 }
 
-// Separate header sub-component (also client, uses i18n)
 export function CategoriesPageHeader() {
   const { t } = useI18n()
 
   return (
     <div className={styles.header}>
       <div className="container">
-        <span className={styles.tagline}>Simpaty</span>
+        <span className={styles.tagline}>Simpaty Collection</span>
         <h1 className={styles.title}>{t('categories.all')}</h1>
-        <div className={styles.divider} />
       </div>
     </div>
   )

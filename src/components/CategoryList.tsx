@@ -14,41 +14,32 @@ export function CategoryList({ categories }: { categories: Category[] }) {
     return (
       <div className={styles.empty}>
         <h2>{t('categories.all')}</h2>
-        <p>Hozircha kategoriyalar yo'q</p>
+        <p>Hozircha kategoriyalar yo&apos;q</p>
       </div>
     )
   }
 
   return (
     <div className={styles.wrapper}>
-      <motion.h2 
-        className={styles.sectionTitle}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-      >
-        {t('categories.all')}
-      </motion.h2>
-
       <div className={styles.grid}>
-        {categories.map((category, index) => (
+        {categories.map((category) => (
           <motion.div
             key={category.id}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: index * 0.1, duration: 0.6 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true, margin: '-100px' }}
           >
             <Link 
               href={`/categories/${category.slug}`} 
               className={styles.card}
-              style={{ '--cat-color': category.mainColor } as React.CSSProperties}
             >
               <div className={styles.imageWrapper}>
                 <img 
-                  src={category.imageUrl || 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=2070&auto=format&fit=crop'} 
+                  src={category.imageUrl || 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=60&w=900&auto=format&fit=crop'} 
                   alt={lang === 'uz' ? category.nameUz : category.nameRu} 
                   className={styles.image}
+                  loading="lazy"
                 />
                 <div className={styles.overlay} />
               </div>
@@ -57,6 +48,7 @@ export function CategoryList({ categories }: { categories: Category[] }) {
                 <h3 className={styles.name}>
                   {lang === 'uz' ? category.nameUz : category.nameRu}
                 </h3>
+                <span className={styles.shopNow}>{t('category.shopNow') || 'Shop Now'}</span>
               </div>
             </Link>
           </motion.div>

@@ -7,7 +7,8 @@ import { OrderStatus } from '@prisma/client'
 export default async function AdminOrdersPage() {
   const orders = await prisma.order.findMany({
     include: { product: true, user: true },
-    orderBy: { createdAt: 'desc' }
+    orderBy: { createdAt: 'desc' },
+    take: 100,
   })
 
   return (

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Product, Category } from '@prisma/client'
 import { useI18n } from '@/lib/i18n'
 import { OrderModal } from '@/components/OrderModal'
@@ -12,7 +12,6 @@ type ProductWithCategory = Product & { category: Category }
 export function ProductDetails({ product }: { product: ProductWithCategory }) {
   const { lang, t } = useI18n()
   const [isModalOpen, setModalOpen] = useState(false)
-  const [activeImage, setActiveImage] = useState(product.primaryImage)
   
   const allImages = [product.primaryImage, ...product.images].filter(Boolean) as string[]
 
@@ -28,42 +27,29 @@ export function ProductDetails({ product }: { product: ProductWithCategory }) {
     <div className={`container ${styles.container}`}>
       <div className={styles.grid}>
         
-        {/* Images Section */}
+        {/* Images Section - Zara style vertical scroll */}
         <div className={styles.imageGallery}>
-          <div className={styles.thumbnailList}>
-            {allImages.map((img, i) => (
-              <button 
-                key={i} 
-                className={`${styles.thumbBtn} ${activeImage === img ? styles.activeThumb : ''}`}
-                onClick={() => setActiveImage(img)}
-              >
-                <img src={img} alt={`${name} ${i}`} className={styles.thumbImg} />
-              </button>
-            ))}
-          </div>
-          <div className={styles.mainImageContainer}>
-            <AnimatePresence mode="wait">
+          {allImages.map((img, i) => (
+            <div key={i} className={styles.mainImageWrapper}>
               <motion.img 
-                key={activeImage || 'default'}
-                src={activeImage || ''}
-                alt={name}
+                src={img}
+                alt={`${name} ${i}`}
                 className={styles.mainImage}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', position: 'absolute', top: 0, left: 0 }}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
               />
-            </AnimatePresence>
-          </div>
+            </div>
+          ))}
         </div>
 
-        {/* Info Section */}
+        {/* Info Section - Sticky */}
         <div className={styles.info}>
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h1 className={styles.title}>{name}</h1>
             <p className={styles.price}>{priceFormatted}</p>
@@ -80,8 +66,8 @@ export function ProductDetails({ product }: { product: ProductWithCategory }) {
             </button>
             
             <div className={styles.extraInfo}>
-              <p>✓ {t('product.quality')}</p>
-              <p>✓ {t('product.delivery')}</p>
+              <div className={styles.extraItem}>✓ {t('product.quality')}</div>
+              <div className={styles.extraItem}>✓ {t('product.delivery')}</div>
             </div>
           </motion.div>
         </div>
