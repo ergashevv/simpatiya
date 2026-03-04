@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Category } from '@prisma/client'
+import { Category, Prisma } from '@prisma/client'
 import Image from 'next/image'
 import { Heart, Ruler, CheckCircle2, ShoppingBag } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -25,7 +25,7 @@ interface ProductWithCategory {
   images: string[]
   colors: string[]
   sizes: string[]
-  details: Record<string, string>
+  details: Prisma.JsonValue
   category: Category
   isActive: boolean
   createdAt: Date
